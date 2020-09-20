@@ -7,8 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-
-
 <html>
     <head>
         <meta charset="UTF-8">
@@ -297,68 +295,12 @@
                     </nav>
                     <div class="container" >
                         <div class="text-center pt-5" >
-                            <h1>Provedores</h1>
-                        </div>
-                        <form action="buscar.jsp">
-                            <div class="d-flex justify-content-center mt-5 mb-4">            
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <input class="form-control" autocomplete="off" name="buscar" id="search" type="text">                         
-                                    </div>                   
-                                    <div class="col-auto">
-                                        <button type="submit" class="btn btn-info">Buscar <i class="fa fa-search"></i>
-                                        </button>                                    
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                            <h1>Busqueda personalizada</h1>
+                        </div> 
                         <div class="container">
-                            <button type="button" class="btn btn-dark"  data-toggle="modal" data-target="#modal_insertar"><i class="fa fa-plus"> </i>  Añadir nuevo </button>
+                            <a href="provedor.jsp" type="button" class="btn btn-secondary">Regresar</a>
                         </div>
-                        <div class="modal fade" id="modal_insertar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form action="controlador_CUD.jsp" >
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Nuevo Proveedor</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row" >
-                                                <div class="form-group col-md">
-                                                    <label for="txtId">ID:</label>
-                                                    <input placeholder="0" class="form-control" type="text" name="txtId" id="txtId" autocomplete="off">
-                                                </div>                                                                       
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="txtNombre">Nombre: </label>
-                                                <input class="form-control" placeholder="Nombre" type="text" name="txtNombre" id="txtNombre" required="" autocomplete="off">
-                                            </div>   
-                                            <div class="row" >
-                                                <div class="form-group col-md">
-                                                    <label for="txtRuc">RUC: </label>
-                                                    <input class="form-control" type="number" placeholder="Nro. RUC"  name="txtRuc" id="txtRuc" required="" autocomplete="off" >
-                                                </div> 
-                                                <div class="form-group col-md">
-                                                    <label for="txtTelefono">Telefono:  </label>
-                                                    <input class="form-control" type="number" name="txtTelefono" placeholder="Nro. Teléfono"  required="" id="txtTelefono" autocomplete="off">
-                                                </div>
-                                            </div> 
-                                            <div class="form-group">
-                                                <label for="txtDireccion">Direccion: </label>
-                                                <input class="form-control" type="text" name="txtDireccion" placeholder="Dirección"  id="txtDireccion" required="" autocomplete="off">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                            <input type="submit" name="btnGrabar" class="btn btn-primary" value="Registrar" >
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+
                         <!--desde aqui empieza el verdadero codigo :v-->
                         <div class="container mt-5 text-center" >
                             <div class="table-responsive">
@@ -376,8 +318,15 @@
                                     <tbody>
                                         <%
 
+                                            String nombre = request.getParameter("buscar");
+
+                                            String ver = request.getParameter("ver");
                                             conexion cnx = new conexion();
-                                            String consulta = "SELECT * FROM Provedor";
+                                            String consulta = "SELECT * FROM Provedor where "
+                                                    + "nombre LIKE '%" + nombre + "%' or ruc LIKE '%"
+                                                    + nombre + "%' or id_Provedor LIKE '%"
+                                                    + nombre + "%'  ";
+
                                             ResultSet rs = cnx.ejecutarLista(consulta);
 
                                             while (rs.next()) {
@@ -401,9 +350,10 @@
                                                 </div>
 
                                             </td>
-                                        </tr>
+                                        </tr>                                       
 
-                                        <%                            }
+                                        <%
+                                            }
 
                                             rs.close();
                                         %>
@@ -441,12 +391,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <script>
-        $('#modal_insertar').on('shown.bs.modal', function () {
-            $('#myInput').trigger('focus')
-        });
 
-    </script>
 
 </html>
+
+
 

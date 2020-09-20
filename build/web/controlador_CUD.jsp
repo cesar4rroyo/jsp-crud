@@ -6,12 +6,7 @@
     String telefono = request.getParameter("txtTelefono");
     String direccionProv = request.getParameter("txtDireccion");
     String buttonGrabar = request.getParameter("btnGrabar");
-
-    if (request.getParameter("btnEditar") != null) {
-        mProvedor oprovedor = new mProvedor();
-        oprovedor.actualizar(id, nombre, ruc, telefono, direccionProv);
-        request.getRequestDispatcher("provedor.jsp").forward(request, response);
-    }
+   
 
     if (buttonGrabar.equals("Registrar")) {
         mProvedor oprovedor = new mProvedor();
@@ -19,9 +14,4 @@
         request.getRequestDispatcher("provedor.jsp").forward(request, response);
         
     }
-    
-        
-
-
-
 %> 

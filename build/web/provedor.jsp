@@ -298,19 +298,23 @@
                     <div class="container" >
                         <div class="text-center pt-5" >
                             <h1>Provedores</h1>
-                        </div>      
-                        <div class="d-flex justify-content-center mt-5">            
-                            <div class="row">                                 
-                                <div class="col-auto">
-                                    <input class="form-control" id="search" type="text">                         
-                                </div>                   
-                                <div class="col-auto">
-                                    <button class="btn btn-info">Buscar <i class="fa fa-search"></i>
-                                    </button>   
+                        </div>
+                        <form action="buscar.jsp">
+                            <div class="d-flex justify-content-center mt-5 mb-4">            
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <input class="form-control" autocomplete="off" name="buscar" id="search" type="text">                         
+                                    </div>                   
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn btn-info">Buscar <i class="fa fa-search"></i>
+                                        </button>                                    
+                                    </div>
                                 </div>
                             </div>
+                        </form>
+                        <div class="container">
+                            <button type="button" class="btn btn-dark"  data-toggle="modal" data-target="#modal_insertar"><i class="fa fa-plus"> </i>  Añadir nuevo </button>
                         </div>
-                        <button type="button" class="btn btn-dark"  data-toggle="modal" data-target="#modal_insertar"><i class="fa fa-plus"> </i>  Añadir nuevo </button>
                         <div class="modal fade" id="modal_insertar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -355,57 +359,59 @@
                                 </div>
                             </div>
                         </div>
-                         <!--desde aqui empieza el verdadero codigo :v-->
+                        <!--desde aqui empieza el verdadero codigo :v-->
                         <div class="container mt-5 text-center" >
-                            <table class="table" >
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">RUC</th>
-                                        <th scope="col">Teléfono</th>
-                                        <th scope="col">Dirección</th>
-                                        <th scope="col">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%
-                                        conexion cnx = new conexion();
-                                        String consulta = "SELECT * FROM Provedor";
-                                        ResultSet rs = cnx.ejecutarLista(consulta);
+                            <div class="table-responsive">
+                                <table class="table table-hover" >
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">RUC</th>
+                                            <th scope="col">Teléfono</th>
+                                            <th scope="col">Dirección</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%
 
-                                        while (rs.next()) {
-                                    %>
-                                    <tr>
-                                        <th> <%=rs.getString(1)%> </th>
-                                        <td> <%=rs.getString(2)%> </td>
-                                        <td> <%=rs.getString(3)%> </td>
-                                        <td> <%=rs.getString(4)%> </td>
-                                        <td> <%=rs.getString(5)%> </td>
-                                        <td>
-                                            <div class="btn-group" >
-            <!--                                    <a href="?id=<%=rs.getString(1)%>" class="btn btn-primary"  data-toggle="modal" data-target="#modal2">
-                                                    <i class="fa fa-pencil-square-o"></i>Editar
-                                                </a>-->
-                                                <a href="editar.jsp?id=<%=rs.getString(1)%>" class="btn btn-primary">
-                                                    <i class="fa fa-pencil-square-o"></i>Editar
-                                                </a>
-                                                <button type="button" class="btn btn-success"><i class="fa fa-eye"></i>Ver</button>
-                                                <a type="button" name="btnEliminar" href="eliminar.jsp?id=<%=rs.getString(1)%>" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>       
-                                            </div>
+                                            conexion cnx = new conexion();
+                                            String consulta = "SELECT * FROM Provedor";
+                                            ResultSet rs = cnx.ejecutarLista(consulta);
 
-                                        </td>
-                                    </tr>
+                                            while (rs.next()) {
+                                        %>
+                                        <tr>
+                                            <th> <%=rs.getString(1)%> </th>
+                                            <td> <%=rs.getString(2)%> </td>
+                                            <td> <%=rs.getString(3)%> </td>
+                                            <td> <%=rs.getString(4)%> </td>
+                                            <td> <%=rs.getString(5)%> </td>
+                                            <td>
+                                                <div class="btn-group" >
+                <!--                                    <a href="?id=<%=rs.getString(1)%>" class="btn btn-primary"  data-toggle="modal" data-target="#modal2">
+                                                        <i class="fa fa-pencil-square-o"></i>Editar
+                                                    </a>-->
+                                                    <a href="editar.jsp?id=<%=rs.getString(1)%>&ver=false" class="btn btn-primary">
+                                                        <i class="fa fa-pencil-square-o"></i>Editar
+                                                    </a>
+                                                    <a href="editar.jsp?id=<%=rs.getString(1)%>"  class="btn btn-success"><i class="fa fa-eye"></i>Ver</a>
+                                                    <a type="button" name="btnEliminar" href="eliminar.jsp?id=<%=rs.getString(1)%>" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>       
+                                                </div>
 
-                                    <%                            }
+                                            </td>
+                                        </tr>
 
-                                        rs.close();
-                                    %>
-                                </tbody>
-                            </table>                 
+                                        <%                            }
 
+                                            rs.close();
+                                        %>
+                                    </tbody>
+                                </table>                 
+                            </div>
                         </div>
-                         <!-- aqui acaba el codigo :v-->
+                        <!-- aqui acaba el codigo :v-->
 
                     </div>
                     <footer class="bg-white sticky-footer">

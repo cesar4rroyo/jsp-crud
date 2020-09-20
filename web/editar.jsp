@@ -291,11 +291,12 @@
                             </ul>
                         </div>
                     </nav>
-                    
+
                     <!--desde aqui empieza el verdadero codigo :v-->
-                    
+
                     <%
                         int id_editar = Integer.parseInt(request.getParameter("id"));
+                        String ver = request.getParameter("ver");
                         conexion cnx = new conexion();
                         String consulta = "SELECT * FROM Provedor where id_Provedor='" + id_editar + "'";
                         ResultSet rs = cnx.ejecutarLista(consulta);
@@ -309,44 +310,49 @@
                             <h1>Editar Proveedor</h1>
                             <hr>
                         </div>
-                        <form action="controlador_CUD.jsp" >
+                        <form action="editarControl.jsp" >
                             <div class="row" >
                                 <div class="form-group col-md">
                                     <label for="txtId">ID:</label>
                                     <input value="<%= rs.getString(1)%>" class="form-control" type="text" name="txtId" id="txtId" autocomplete="off">
-                                </div>                                                                       
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="txtNombre">Nombre: </label>
                                 <input value="<%= rs.getString(2)%>" class="form-control" placeholder="Nombre" type="text" name="txtNombre" id="txtNombre" required="" autocomplete="off">
-                            </div>   
+                            </div>
                             <div class="row" >
                                 <div class="form-group col-md">
                                     <label for="txtRuc">RUC: </label>
                                     <input value="<%= rs.getString(3)%>" class="form-control" type="text" placeholder="Nro. RUC"  name="txtRuc" id="txtRuc" required="" autocomplete="off" >
-                                </div> 
+                                </div>
                                 <div class="form-group col-md">
                                     <label for="txtTelefono">Telefono:  </label>
                                     <input value="<%= rs.getString(4)%>" class="form-control" type="text" name="txtTelefono" placeholder="Nro. Teléfono"  required="" id="txtTelefono" autocomplete="off">
                                 </div>
-                            </div> 
+                            </div>
                             <div class="form-group">
                                 <label for="txtDireccion">Direccion: </label>
                                 <input value="<%= rs.getString(5)%>" class="form-control" type="text" name="txtDireccion" placeholder="Dirección"  id="txtDireccion" required="" autocomplete="off">
                             </div>
                             <a href="provedor.jsp" type="button" class="btn btn-secondary">Regresar</a>
+                            <%
+                                if (ver != null) {
+                            %>    
                             <input type="submit" id="btnEditar" name="btnEditar" class="btn btn-primary" value="Editar" >
+                            <%
+                                }
+                            %>
                         </form>
                     </div>
 
                     <%
-
                         }
 
 
                     %>
-                <!--aqui termina el codigo lo demas son wbds-->
-                
+                    <!--aqui termina el codigo lo demas son wbds-->
+
                 </div>
                 <footer class="bg-white sticky-footer">
                     <div class="container my-auto">
