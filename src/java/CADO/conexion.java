@@ -18,7 +18,7 @@ public class conexion {
         
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            cnx= DriverManager.getConnection("jdbc:mysql://localhost:3306/gas","root" , "alianza");
+            cnx= DriverManager.getConnection("jdbc:mysql://localhost:3306/gas","unprg" , "password");
             return cnx;
             
         }catch(Exception e){
